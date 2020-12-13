@@ -24,8 +24,12 @@
               "src/assets"
             ],
             "styles": [
+<<<<<<< HEAD:src/main/ui/angular.json
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+=======
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+>>>>>>> 61df598ebfaace6b82b2c210b639b0d6e20342c2:tasktracker-frontend/angular.json
               "src/styles.css"
             ],
             "scripts": []
@@ -91,8 +95,12 @@
               "src/assets"
             ],
             "styles": [
+<<<<<<< HEAD:src/main/ui/angular.json
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+=======
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+>>>>>>> 61df598ebfaace6b82b2c210b639b0d6e20342c2:tasktracker-frontend/angular.json
               "src/styles.css"
             ],
             "scripts": []
