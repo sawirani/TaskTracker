@@ -16,7 +16,7 @@ jobs:
         node-version: [14.x]
     defaults:
       run:
-        working-directory: ./tasktracker-frontend
+        working-directory: /src/main/ui/
 
     steps:
     - uses: actions/checkout@v2
@@ -25,5 +25,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: npm run build --if-present
+    - run: npm start
 

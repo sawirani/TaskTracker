@@ -1,0 +1,26 @@
+<div class="container">
+  <h2>Tasks</h2>
+  <table class="table table-bordered" align="left" >
+    <thead>
+      <tr>
+        <th>Task Id</th>
+        <th>TaskName</th>
+        <th>TaskDescription</th>
+        <th>ETA</th>
+        <th>Assigned</th>
+        <th>Points</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks; let i = task_id;">
+        <td>{{task.task_id}}</td>
+        <td>{{task.taskName}}</td>
+        <td>{{task.taskDescription}}</td>
+        <td>{{task.eta}}</td>
+        <td>{{task.assigned}}</td>
+        <td>{{task.points}}</td>
+      </tr>
+      
+    </tbody>
+  </table>
+</div>
