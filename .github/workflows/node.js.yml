@@ -16,7 +16,7 @@ jobs:
         node-version: [14.x]
     defaults:
       run:
-        working-directory: /src/main/ui/
+        working-directory: ./src/main/ui/
 
     steps:
     - uses: actions/checkout@v2
