@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.core.context.SecurityContextHolder;
+import com.tasktracker.application.security.services.UserDetailsImpl;
 
 
 
@@ -27,9 +29,28 @@ import com.tasktracker.application.security.services.TaskService;
 import com.tasktracker.application.repository.TaskRepository;
 
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+
+import com.tasktracker.application.models.ERole;
+import com.tasktracker.application.models.Role;
+import com.tasktracker.application.models.User;
+import com.tasktracker.application.payload.request.LoginRequest;
+import com.tasktracker.application.payload.request.SignupRequest;
+import com.tasktracker.application.payload.response.JwtResponse;
+import com.tasktracker.application.payload.response.MessageResponse;
+import com.tasktracker.application.repository.RoleRepository;
+import com.tasktracker.application.repository.UserRepository;
+import com.tasktracker.application.security.jwt.JwtUtils;
+import com.tasktracker.application.security.services.UserDetailsImpl;
+
+
 import lombok.extern.slf4j.Slf4j;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api")
 public class TaskController {
@@ -55,6 +76,30 @@ public class TaskController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+
+	@GetMapping("/my_tasks")
+	public ResponseEntity<List<Task>> getAllMyTasks(@RequestParam(required = false) String assigne, SignupRequest signUpRequest) {
+
+
+		// Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			// if (principal instanceof UserDetailsImpl) {
+			// 	String username = ((UserDetailsImpl)principal).getUsername();
+			// } else {
+			// 	String username = principal.toString();
+			// }
+			// assigne = toString(principal.getUsername());
+			String username =  userDetails.getUsername();
+			List<Task> tasks = taskRepository.findByAssigned(username);
+
+			if (tasks.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(tasks, HttpStatus.OK);
+
 	}
 
 	@GetMapping("/tasks/{id}")
