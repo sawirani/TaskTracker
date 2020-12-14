@@ -1,0 +1,8 @@
+<button type="button" class="btn add-user-button" (click)="openModal(template)">Create template modal</button>
+ 
+<ng-template #template>
+
+  <app-user-create-popover (closeModal)="closeModal()">
+
+  </app-user-create-popover>
+</ng-template>

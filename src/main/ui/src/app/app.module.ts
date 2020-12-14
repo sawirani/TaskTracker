@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { DisplayBoardComponent } from './display-board.component';
-// import { UsersComponent } from './users.component';
 import { TasksComponent } from './tasks.component';
 import { environment } from '../environments/environment';
 
@@ -28,6 +27,7 @@ import { TaskDetailsComponent } from './components/task-details/task-details.com
 import { TasksListComponent } from './components/task-list/tasks-list.component';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { UsersModule } from './users/users.module';
 
 // state related imports
 // import { StoreModule } from '@ngrx/store';
@@ -41,7 +41,6 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     AppComponent,
     HeaderComponent,
     DisplayBoardComponent,
-    // UsersComponent,
     TasksComponent,
     LoginComponent,
     RegisterComponent,
@@ -62,7 +61,7 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-
+    UsersModule
 
     /**
      * StoreModule.forRoot is imported once in the root module, accepting a reducer
@@ -98,6 +97,7 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
      * See: https://github.com/ngrx/platform/blob/master/docs/effects/api.md#forroot
      */
   ],
+  exports:[RegisterComponent],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
