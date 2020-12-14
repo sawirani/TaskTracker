@@ -4,7 +4,7 @@
     <!-- <p>{{ content }}</p> -->
     <div class="outer">
       <p>
-        <span class="hr3">My Tasks: </span> 
+        <span class="hr3">My Assigned Tasks: </span> 
         <span class="number">{{taskCount}}</span> 
       </p>
       <!-- <div class="btn">
@@ -21,7 +21,7 @@
     <div class="col-md-4 mrgnbtm">
       <app-display-board
        [taskCount]="taskCount"
-       (getTasksEvent)="getAllTasks()"
+       (getTasksEvent)="getAllMyTasks()"
       >
       </app-display-board>
     </div>

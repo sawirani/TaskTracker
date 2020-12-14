@@ -23,6 +23,9 @@ import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { BoardUserComponent } from './board-user/board-user.component';
 import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AddTaskComponent } from './components/add-task/add-task.component';
+import { TaskDetailsComponent } from './components/task-details/task-details.component';
+import { TasksListComponent } from './components/task-list/tasks-list.component';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 
@@ -47,6 +50,9 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     BoardUserComponent,
     BoardModeratorComponent,
     ProfileComponent,
+    AddTaskComponent,
+    TaskDetailsComponent,
+    TasksListComponent
     //SortDirective
   ],
   imports: [

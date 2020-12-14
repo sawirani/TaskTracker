@@ -12,9 +12,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let task of tasks; let i = task_id;">
-        <td>{{task.task_id}}</td>
-        <td>{{task.taskName}}</td>
+      <tr *ngFor="let task of tasks;">
+        <td>{{task.id}}</td>
+        <td>{{task.taskTitle}}</td>
         <td>{{task.taskDescription}}</td>
         <td>{{task.eta}}</td>
         <td>{{task.assigned}}</td>

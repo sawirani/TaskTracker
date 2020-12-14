@@ -17603,7 +17603,7 @@ function addBody(options, body) {
  * The value of `responseType` cannot be a union, as the combined signature could imply.
  *
  * \@usageNotes
- * Sample HTTP requests for the [Tour of Heroes](/tutorial/toh-pt0) application.
+ * Sample HTTP requests for the [Tour of Heroes](/task/toh-pt0) application.
  *
  * ### HTTP Request Example
  *
