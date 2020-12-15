@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../_services/task.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from 'src/app/_services/user.service';
+import { User } from 'src/app/models/user-roles';
 
 @Component({
   selector: 'app-task-details',
@@ -10,15 +12,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class TaskDetailsComponent implements OnInit {
   currentTask = null;
   message = '';
+  users: User[] = [];
 
   constructor(
     private taskService: TaskService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private userService: UserService) { }
 
   ngOnInit(): void {
     this.message = '';
     this.getTask(this.route.snapshot.paramMap.get('id'));
+    this.getUsers();
   }
 
   getTask(id): void {
@@ -26,11 +31,18 @@ export class TaskDetailsComponent implements OnInit {
       .subscribe(
         data => {
           this.currentTask = data;
+          this.currentTask.eta = new Date(this.currentTask.eta);
           console.log(data);
         },
         error => {
           console.log(error);
         });
+  }
+
+  getUsers() {
+    this.userService.getAllUsers().subscribe(users => {
+      this.users = users;
+    });
   }
 
   updateResolved(status): void {
@@ -47,6 +59,7 @@ export class TaskDetailsComponent implements OnInit {
       .subscribe(
         response => {
           this.currentTask.published = status;
+          this.currentTask = response;
           console.log(response);
         },
         error => {
@@ -76,5 +89,12 @@ export class TaskDetailsComponent implements OnInit {
         error => {
           console.log(error);
         });
+  }
+
+  isUserAssigned(user: User) {
+    if (this.currentTask.assigned.indexOf(`${user.lastname}, ${user.firstname}`) !== -1) {
+      return true;
+    }
+    return false;
   }
 }

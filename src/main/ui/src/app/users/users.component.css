@@ -1,0 +1,33 @@
+.add-user-button{
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.card{
+    border: 1px solid #D5DCE3;
+    box-sizing: border-box;
+    border-radius: 3px;
+    padding: 16px;
+    margin-top: 4px;
+    position: relative;
+}
+
+.row{
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.edit-user-button{
+    position: absolute;
+    top:16px;
+    right: 16px;
+}
+
+.delete-user-button{
+    position: absolute;
+    top: 64px;
+    right: 16px;
+    background-color: red;
+    color: white;
+}

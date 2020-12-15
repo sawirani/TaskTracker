@@ -47,7 +47,7 @@
       </div>
       <div>
         <label><strong>ETA:</strong></label>
-        {{ currentTask.eta }}
+        {{ currentTask.eta | date: 'dd/MM/yyyy'}}
       </div>
       <div>
         <label><strong>Assigned:</strong></label>

@@ -1,4 +1,4 @@
-package com.tasktracker.application.controllers;
+package com.tasktracker.application.controller;
 
 import java.util.HashSet;
 import java.util.List;
@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.tasktracker.application.payload.request.LoginRequest;
 import com.tasktracker.application.payload.request.SignupRequest;
@@ -42,6 +43,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import lombok.extern.slf4j.Slf4j;
+
+@CrossOrigin(origins = "http://localhost:4200")
 @Slf4j
 @RestController
 @RequestMapping("/api/")

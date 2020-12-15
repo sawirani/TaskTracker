@@ -1,0 +1,30 @@
+<button type="button" class="btn add-user-button" (click)="openModal(template, 'create')">Create user</button>
+ 
+<div class="alert alert-warning" *ngIf="errorMessage">
+  Signup failed!<br />{{ errorMessage }}
+</div>
+
+<ng-template #template>
+
+  <app-user-create-popover [mode]="popoverMode"
+                           [user]="selectedUser"
+                           (closeModal)="closeModal()"
+                           (userCreate)="onUserCreate($event)"
+                           (userEdite)="onUserEdite($event)">
+
+  </app-user-create-popover>
+
+</ng-template>
+
+<div *ngFor="let user of users">
+  <div class="card">
+    <h4>{{user.firstname}} {{user.lastname}}</h4>
+    <div> <b>username:</b> {{user.username}} </div>
+    <div> <b>e-mail:</b> {{user.email}}</div>
+    <div> <b>role:</b> {{getStrRoles(user.roles)}}</div>
+    
+    <button *ngIf="!isAdmin(user)" type="button" class="btn edit-user-button" (click)="openModal(template, 'edit', user)"> Edit </button>
+    <button *ngIf="!isAdmin(user)" type="button" class="btn delete-user-button" (click)="deleteUser(user)"> Delete </button>
+
+  </div>
+</div>
