@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title pull-left">Modal</h4>
+  <h4 class="modal-title pull-left">{{ mode === 'create'? 'Create' : 'Edit' }}</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="closePopover()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -97,7 +97,7 @@
                      > Manager
         </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="mode === 'create'">
           <label for="password">Password</label>
           <input
             type="password"
@@ -116,7 +116,7 @@
           </div>
         </div>
         <div class="form-group">
-          <button class="btn btn-primary btn-block">Sign Up</button>
+          <button class="btn btn-primary btn-block"> {{ mode === 'create'? 'Create' : 'Update' }} </button>
         </div>
   
         <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">

@@ -1,6 +1,6 @@
-import { Component, OnInit, OnChanges, Input, SimpleChanges, ViewChild, Output, EventEmitter } from '@angular/core';
-import { AuthService } from 'src/app/_services/auth.service';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { userRoles } from 'src/app/models/user-roles';
 
 @Component({
   selector: 'app-user-create-popover',
@@ -13,8 +13,11 @@ export class UserCreatePopoverComponent implements OnInit, OnChanges {
 
   @Input() mode: 'create' | 'edit';
   @Input() visible = false;
+  @Input() user;
 
   @Output() closeModal = new EventEmitter();
+  @Output() userCreate = new EventEmitter<any>();
+  @Output() userEdite = new EventEmitter<any>();
 
   form: any = {};
   isSuccessful = false;
@@ -22,14 +25,20 @@ export class UserCreatePopoverComponent implements OnInit, OnChanges {
   errorMessage = '';
   modalRef: BsModalRef;
 
-  constructor(private authService: AuthService,
-              private modalService: BsModalService) {}
+  constructor() {}
 
   ngOnInit() {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
+    if (changes.user && !!changes.user.currentValue) {
+      this.form.username = changes.user.currentValue.username;
+      this.form.email = changes.user.currentValue.email;
+      this.form.firstname = changes.user.currentValue.firstname;
+      this.form.lastname = changes.user.currentValue.lastname;
+      this.form.password = changes.user.currentValue.password;
+      this.form.checkbox = changes.user.currentValue.roles[0].name === 'ROLE_MODERATOR' ? true : false;
+    }
   }
 
   closePopover() {
@@ -37,28 +46,35 @@ export class UserCreatePopoverComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
-    const user = {
-      username: this.form.username,
-      email: this.form.email,
-      firstname: this.form.firstname,
-      lastname: this.form.lastname,
-      password: this.form.password,
-      role: this.form.checkbox ? ['mod'] : ''
-    };
-    this.authService.register(user).subscribe(
-      data => {
-        this.isSuccessful = true;
-        this.isSignUpFailed = false;
-        this.closeModal.emit();
-      },
-      err => {
-        this.errorMessage = err.error.message;
-        this.isSignUpFailed = true;
-      }
-    );
+  if (this.mode === 'create') {
+      const user = {
+        username: this.form.username,
+        email: this.form.email,
+        firstname: this.form.firstname,
+        lastname: this.form.lastname,
+        password: this.form.password,
+        role: this.form.checkbox ? ['mod'] : ['']
+      };
+
+      this.userCreate.emit(user);
+    } else {
+      const user = {
+        id: this.user.id,
+        username: this.form.username,
+        email: this.form.email,
+        firstname: this.form.firstname,
+        lastname: this.form.lastname,
+        password: this.form.password,
+        roles: this.form.checkbox ? [userRoles.manager] : [userRoles.user]
+      };
+
+      this.userEdite.emit(user);
+    }
+
+  this.closeModal.emit();
   }
 
-  onClosePopover(): void {
+  onClosePopover() {
     this.modalRef.hide();
   }
 

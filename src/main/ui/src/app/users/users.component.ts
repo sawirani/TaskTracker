@@ -1,6 +1,9 @@
 import { Component, OnInit, TemplateRef  } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { User } from '../models/user-roles';
+import { AuthService } from '../_services/auth.service';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-users',
@@ -9,19 +12,67 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class UsersComponent implements OnInit {
 
-  modalRef: BsModalRef;
-  constructor(private modalService: BsModalService) {}
+modalRef: BsModalRef;
+users: User[] = [];
+popoverMode = 'create';
+selectedUser;
+errorMessage;
+
+constructor(private modalService: BsModalService,
+            private userService: UserService,
+            private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.getUsers();
   }
 
-  openModal(template: TemplateRef<any>) {
+  getUsers() {
+    this.userService.getAllUsers().subscribe(users => {
+      this.users = users;
+    });
+  }
+
+  openModal(template: TemplateRef<any>, mode: string, user?: any) {
+    this.selectedUser = user;
+    this.popoverMode = mode;
     this.modalRef = this.modalService.show(template);
   }
 
   closeModal(): void {
-    console.log('emit');
     this.modalRef.hide();
+  }
+
+  onUserCreate(user): void {
+    this.authService.register(user).subscribe(
+      () => this.getUsers(),
+      err => {
+        this.errorMessage = err.error.message;
+      });
+  }
+
+  getStrRoles(roles: any[]): string {
+    return roles.map(role => role.name).join(', ');
+  }
+
+  isAdmin(user: any): boolean {
+    return user.roles.map(role => role.name).join(', ').indexOf('ROLE_ADMIN') !== -1;
+  }
+
+  onUserEdite(user: User) {
+    this.userService.editeUser(user).subscribe(() =>
+      this.users = this.users.map(searchUser => {
+      if (searchUser.username === user.username) {
+        searchUser = user;
+      }
+      return searchUser;
+    })
+    );
+  }
+
+  deleteUser(deleteUser: any) {
+    this.userService.deleteUser(deleteUser).subscribe(() => {
+      this.users = this.users.filter( user => user.username !== deleteUser.username);
+    });
   }
 
 }
