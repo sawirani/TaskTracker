@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user-roles';
+import { UserService } from 'src/app/_services/user.service';
 import { TaskService } from '../../_services/task.service';
 
 @Component({
@@ -16,10 +18,13 @@ export class AddTaskComponent implements OnInit {
     resolved: false
   };
   submitted = false;
+  users: User[];
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService,
+              private userService: UserService) { }
 
   ngOnInit(): void {
+    this.getUsers();
   }
 
   saveTask(): void {
@@ -40,6 +45,12 @@ export class AddTaskComponent implements OnInit {
         error => {
           console.log(error);
         });
+  }
+
+  getUsers() {
+    this.userService.getAllUsers().subscribe(users => {
+      this.users = users;
+    });
   }
 
   newTask(): void {

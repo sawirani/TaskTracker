@@ -12,6 +12,7 @@ import { TasksComponent } from './tasks.component';
 import { environment } from '../environments/environment';
 
 import { FormsModule } from '@angular/forms';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 // import { SortDirective } from '../directive/sort.directive';
 
@@ -51,7 +52,7 @@ import { UsersModule } from './users/users.module';
     ProfileComponent,
     AddTaskComponent,
     TaskDetailsComponent,
-    TasksListComponent
+    TasksListComponent,
     //SortDirective
   ],
   imports: [
@@ -61,7 +62,8 @@ import { UsersModule } from './users/users.module';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    UsersModule
+    UsersModule,
+    BsDatepickerModule.forRoot(),
 
     /**
      * StoreModule.forRoot is imported once in the root module, accepting a reducer

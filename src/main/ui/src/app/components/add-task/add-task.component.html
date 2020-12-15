@@ -26,24 +26,23 @@
 
       <div class="form-group">
         <label for="eta">ETA</label>
-        <input
-          class="form-control"
-          id="eta"
-          required
+        <input class="form-control" 
+          id="eta" #drp="bsDatepicker"
+          bsDatepicker 
           [(ngModel)]="task.eta"
-          name="eta"
-        />
+          [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+          name="eta">
       </div>
 
       <div class="form-group">
         <label for="assigned">Assigned</label>
-        <input
-          class="form-control"
-          id="assigned"
-          required
-          [(ngModel)]="task.assigned"
-          name="assigned"
-        />
+        <select class="form-control"
+                id="assigned"
+                [(ngModel)]="task.assigned"
+                name="assigned">
+          <option> --- </option>
+          <option *ngFor="let user of users">{{user.lastname}}, {{user.firstname}}</option>
+        </select>
       </div>
 
       <div class="form-group">
