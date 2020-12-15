@@ -35,8 +35,8 @@ export class BoardUserComponent implements OnInit {
     });
   }
 
-  getAllTasks() {
-    this.appService.getTasks().pipe(takeUntil(this.destroy$)).subscribe((tasks: any[]) => {
+  getAllMyTasks() {
+    this.appService.getMyTasks().pipe(takeUntil(this.destroy$)).subscribe((tasks: any[]) => {
 		this.taskCount = tasks.length;
         this.tasks = tasks;
     });
@@ -56,6 +56,6 @@ export class BoardUserComponent implements OnInit {
         this.content = JSON.parse(err.error).message;
       }
     );
-    this.getAllTasks();
+    this.getAllMyTasks();
   }
 }

@@ -8,6 +8,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { BoardUserComponent } from './board-user/board-user.component';
 import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
+import { TasksListComponent } from './components/task-list/tasks-list.component';
+import { TaskDetailsComponent } from './components/task-details/task-details.component';
+import { AddTaskComponent } from './components/add-task/add-task.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -17,6 +20,9 @@ const routes: Routes = [
   { path: 'user', component: BoardUserComponent },
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
+  { path: 'tasks', component: TasksListComponent },
+  { path: 'tasks/:id', component: TaskDetailsComponent },
+  { path: 'add', component: AddTaskComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

@@ -1,8 +1,8 @@
 export class Task {
-  task_id: number
-  taskName: string;
+  id: number
+  taskTitle: string;
   taskDescription: string;
-  assigned: string;
   eta: string;
+  assigned: string;
   points: string;
 }
