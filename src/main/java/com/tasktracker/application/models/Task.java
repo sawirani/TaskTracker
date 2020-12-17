@@ -27,7 +27,11 @@ public class Task {
     @Column(name = "eta")
     @NotNull(message="{NotNull.Task.eta}")
     private String eta;
-    
+
+    @Column(name = "start_date")
+    @NotNull(message="{NotNull.Task.start_date}")
+    private String start_date;
+
     @Column(name = "assigned")
     @NotNull(message="{NotNull.Task.assigned}")
     private String assigned;
@@ -43,10 +47,11 @@ public class Task {
 
 	}
 
-	public Task(String taskTitle, String taskDescription, String eta, String assigned, String points , boolean resolved) {
+	public Task(String taskTitle, String taskDescription, String eta, String start_date, String assigned, String points , boolean resolved) {
 		this.taskTitle = taskTitle;
         this.taskDescription = taskDescription;
         this.eta = eta;
+        this.start_date = start_date;
         this.assigned = assigned;
         this.points = points;
         this.resolved = resolved;
@@ -82,6 +87,14 @@ public class Task {
 		this.eta = eta;
 	}
 
+	public String getStartDate() {
+		return start_date;
+	}
+
+	public void setStartDate(String start_date) {
+		this.start_date = start_date;
+	}
+
 	public String getAssigned() {
 		return assigned;
 	}
@@ -109,7 +122,7 @@ public class Task {
 
 	@Override
 	public String toString() {
-		return "Task [task_id=" + task_id + ", title=" + taskTitle + ", desc=" + taskDescription + ", eta=" + eta + ", assigned=" + assigned + ", points=" + points + ", resolved=" + resolved + "]";
+		return "Task [task_id=" + task_id + ", title=" + taskTitle + ", desc=" + taskDescription + ", eta=" + eta + ", start_date=" + start_date + ", assigned=" + assigned + ", points=" + points + ", resolved=" + resolved + "]";
 	}
 
 }

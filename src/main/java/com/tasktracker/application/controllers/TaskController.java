@@ -117,7 +117,7 @@ public class TaskController {
 	public ResponseEntity<Task> createTask(@RequestBody Task task) {
 		try {
 			Task _task = taskRepository
-					.save(new Task(task.getTaskTitle(), task.getTaskDescription(), task.getEta(), task.getAssigned(), task.getPoints(), false));
+					.save(new Task(task.getTaskTitle(), task.getTaskDescription(), task.getEta(), task.getStartDate(), task.getAssigned(), task.getPoints(), false));
 			return new ResponseEntity<>(_task, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -133,6 +133,7 @@ public class TaskController {
 			_task.setTaskTitle(task.getTaskTitle());
 			_task.setTaskDescription(task.getTaskDescription());
 			_task.setEta(task.getEta());
+			_task.setStartDate(task.getStartDate());
 			_task.setAssigned(task.getAssigned());
 			_task.setPoints(task.getPoints());
 			_task.setResolved(task.isResolved());
