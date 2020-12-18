@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { TaskService } from '../../_services/task.service';
 
 @Component({
@@ -13,10 +14,22 @@ export class TasksListComponent implements OnInit {
   currentIndex = -1;
   title = '';
 
-  constructor(private taskService: TaskService) { }
+  isTaskEditMode = false;
+
+  showAdminBoard = false;
+  showModeratorBoard = false;
+
+  constructor(private taskService: TaskService,
+              private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
     this.retrieveTasks();
+
+    if (!!this.tokenStorageService.getToken()) {
+      const user = this.tokenStorageService.getUser();
+      this.showAdminBoard = user.roles.includes('ROLE_ADMIN');
+      this.showModeratorBoard = user.roles.includes('ROLE_MODERATOR');
+    }
   }
 
   retrieveTasks(): void {
@@ -65,4 +78,10 @@ export class TasksListComponent implements OnInit {
           console.log(error);
         });
   }
+
+  onTaskCreate(): void{
+    this.retrieveTasks();
+    this.isTaskEditMode = false;
+  }
+
 }
