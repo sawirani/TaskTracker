@@ -12,6 +12,7 @@ export class AddTaskComponent implements OnInit {
   task = {
     taskTitle: '',
     taskDescription: '',
+    startDate: '',
     eta: '',
     assigned: '',
     points: '',
@@ -31,6 +32,7 @@ export class AddTaskComponent implements OnInit {
     const data = {
       taskTitle: this.task.taskTitle,
       taskDescription: this.task.taskDescription,
+      startDate: this.task.startDate,
       eta: this.task.eta,
       assigned: this.task.assigned,
       points: this.task.points
@@ -58,6 +60,7 @@ export class AddTaskComponent implements OnInit {
     this.task = {
       taskTitle: '',
       taskDescription: '',
+      startDate: '',
       eta: '',
       assigned: '',
       points: '',

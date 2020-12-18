@@ -46,6 +46,10 @@
         {{ currentTask.taskDescription }}
       </div>
       <div>
+        <label><strong>startDate:</strong></label>
+        {{ currentTask.startDate | date: 'dd/MM/yyyy'}}
+      </div>
+      <div>
         <label><strong>ETA:</strong></label>
         {{ currentTask.eta | date: 'dd/MM/yyyy'}}
       </div>

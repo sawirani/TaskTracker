@@ -21,6 +21,7 @@ export class BoardAdminComponent implements OnInit {
     taskTitle: new FormControl('', Validators.nullValidator && Validators.required),
     taskDescription: new FormControl('', Validators.nullValidator && Validators.required),
     eta: new FormControl('', Validators.nullValidator && Validators.required),
+    startDate: new FormControl('', Validators.nullValidator && Validators.required),
     assigned: new FormControl('', Validators.nullValidator && Validators.required),
     points: new FormControl('', Validators.nullValidator && Validators.required)
   });
