@@ -57,9 +57,18 @@ export class TasksListComponent implements OnInit {
   }
 
   setActiveTask(task, index): void {
-    this.currentTask = task;
-    this.currentIndex = index;
-    this.getTaskComments();
+    this.getTask(task.id, index);
+  }
+
+  getTask(id, index?): void {
+    this.taskService.get(id).subscribe( newTask => {
+      this.currentTask = newTask;
+      this.currentTask.comments = this.currentTask.comments.map( comment => {
+        comment.date = new Date(comment.date);
+        return comment;
+      });
+      this.currentIndex = index ? index : this.currentIndex;
+    });
   }
 
   removeAllTasks(): void {
@@ -86,32 +95,22 @@ export class TasksListComponent implements OnInit {
         });
   }
 
-  onTaskCreate(): void{
+  onTaskCreate(): void {
     this.retrieveTasks();
     this.isTaskEditMode = false;
   }
 
-  addComment(): void{
+  addComment(): void {
     const comment = {
-      taskId: this.currentTask.id,
-      userName: this.user.id,
-      comment: this.form.comment,
-      date: new Date() 
-    }
+      taskId: this.currentTask.id.toString(),
+      userId: this.user.id.toString(),
+      comment: this.form.comment.toString(),
+      date: new Date().toString()
+    };
 
-    this.taskService.addTaskComments(comment).subscribe(()=>{
+    this.taskService.addTaskComment(comment).subscribe(() => {
       this.form.comment = '';
-      this.getTaskComments();
-    })
+      this.getTask(this.currentTask.id);
+    });
   }
-
-  getTaskComments(): void {
-    this.taskService.getTaskComments(this.currentTask.id).subscribe( comments =>{
-      this.comments = comments.map( value => {
-        value.date = new Date(value.date);
-        return value;
-      })
-    })
-  }
-
 }
