@@ -1,8 +1,7 @@
 package com.tasktracker.application.models;
 
-// import javax.persistence.Column;
-// import javax.persistence.Entity;
-// import javax.persistence.Id;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -41,6 +40,16 @@ public class Task {
   @Column(name = "Resolved")
   private boolean resolved;
 
+
+
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(
+    name = "task_comments",
+    joinColumns = @JoinColumn(name = "taskId"),
+    inverseJoinColumns = @JoinColumn(name = "comment_id")
+  )
+  private List<Comment> comments = new ArrayList<>();
+
   public Task() {}
 
   public Task(
@@ -59,6 +68,15 @@ public class Task {
     this.assigned = assigned;
     this.points = points;
     this.resolved = resolved;
+  }
+
+
+  public List<Comment> getComments() {
+      return comments;
+  }
+
+  public void setComments(List<Comment> comments) {
+      this.comments = comments;
   }
 
   public long getId() {

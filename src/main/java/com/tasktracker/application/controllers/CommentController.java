@@ -51,15 +51,15 @@ public class CommentController {
 
   @PostMapping(path = CommentLinks.ADD_COMMENT)
   public ResponseEntity<?> addComment(@RequestBody Comment comment) {
-    log.info("CommentController:  add comment");
     try {
-      Comment _comment = commentRepository.save( new Comment(
+      commentRepository.save( new Comment(
         comment.getUserId(),
         comment.getTaskId(),
         comment.getComment(),
         comment.getDate()
     ));
-      return new ResponseEntity<>(new MessageResponse("User registered successfully!"), HttpStatus.OK);
+      log.info("CommentController:  add comment");
+      return new ResponseEntity<>(new MessageResponse("Comment has been added successfully!"), HttpStatus.OK);
     } catch (Exception e) {
       
       return new ResponseEntity<>(new MessageResponse("Server error!"), HttpStatus.INTERNAL_SERVER_ERROR);

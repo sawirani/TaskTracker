@@ -14,8 +14,8 @@ public class CommentService {
     this.commentRepository = commentRepository;
   }
 
-  public List<Comment> getCommetsByTaskId(Long task_id) {
-    return commentRepository.findByTaskId(task_id);
+  public List<Comment> getCommetsByTaskId(String taskId) {
+    return commentRepository.findByTaskId(taskId);
   }
 
   public Comment saveComment(Comment comment) {

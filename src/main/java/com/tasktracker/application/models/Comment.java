@@ -20,12 +20,12 @@ public class Comment {
   private Long comment_id;
 
   @NotBlank
-  @Column(name = "id_user")
+  @Column(name = "userId")
   private String userId;
 
   @NotBlank
-  @Column(name = "id_task")
-  private Long taskId;
+  @Column(name = "taskId")
+  private String taskId;
 
   @NotBlank
   @Column(name = "comment")
@@ -37,26 +37,22 @@ public class Comment {
 
   public Comment() {}
 
-  public Comment(String userId, Long taskId, String comment, String date) {
+  public Comment(String userId, String taskId, String comment, String date) {
     this.userId = userId;
     this.taskId = taskId;
     this.comment = comment;
     this.date = date;
   }
 
-  public Long getCommentId() {
+  public Long getId() {
     return comment_id;
   }
 
-  public void setCommentId(Long comment_id) {
-    this.comment_id = comment_id;
-  }
-
-  public Long getTaskId() {
+  public String getTaskId() {
     return taskId;
   }
 
-  public void setTaskId(Long taskId) {
+  public void setTaskId(String taskId) {
     this.taskId = taskId;
   }
 
