@@ -80,6 +80,39 @@
         <a class="badge badge-warning" routerLink="/tasks/{{ currentTask.id }}">
           Edit
         </a>
+
+        <div class="task-comments-dialog">
+          <div class="form-group">
+            <textarea
+              class="form-control task-creation-form"
+              id="taskComment"
+              required
+              [(ngModel)]="form.comment"
+              name="taskComment"
+            ></textarea>
+          </div>
+        </div>
+    
+        <button class="btn btn-outline-secondary"
+                type="button"
+                (click)="addComment()">
+        Add Comment
+        </button>
+
+        <div class="tasks-list"
+             *ngIf="currentTask && currentTask.comments?.length">
+          <div *ngFor='let comment of currentTask.comments'
+                class="comment-card">
+            <div class="comment-row">
+              <div> Created by: {{comment.userId}}</div>
+              <div> Created when: {{comment.date | date: 'dd/MM/yyyy, h:mm a'}}</div>
+            </div>
+            <div class="comment-content">
+              {{comment.comment}}
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <div *ngIf="!currentTask">

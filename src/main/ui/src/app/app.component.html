@@ -9,10 +9,10 @@
         <a href="/mod" class="nav-link" routerLink="mod">Moderator Board</a>
       </li>
       <li class="nav-item">
-        <a href="/user" class="nav-link" *ngIf="!showModeratorBoard && !showAdminBoard" routerLink="user">User</a>
+        <a href="/user" class="nav-link" *ngIf="isLoggedIn && !showModeratorBoard && !showAdminBoard" routerLink="user">User</a>
       </li>
         <li class="nav-item">
-          <a routerLink="/tasks" class="nav-link">Tasks</a>
+          <a *ngIf="isLoggedIn" routerLink="/tasks" class="nav-link">Tasks</a>
         </li>
       <li class="nav-item">
         <a href="/users" class="nav-link" *ngIf="showModeratorBoard || showAdminBoard" routerLink="users">Users</a>
