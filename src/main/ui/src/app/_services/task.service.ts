@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { of } from 'rxjs';
 
 const baseUrl = 'http://localhost:8080/api/tasks';
 
@@ -8,6 +9,29 @@ const baseUrl = 'http://localhost:8080/api/tasks';
   providedIn: 'root'
 })
 export class TaskService {
+
+  tasksCommentStub = [
+    {
+      userName: 'Name',
+      comment: 'Text',
+      date: '12.19.2020'
+    },
+    {
+      userName: 'Name',
+      comment: 'Text',
+      date: '12.19.2020' 
+    },
+    {
+      userName: 'Name',
+      comment: 'Text',
+      date: '12.19.2020' 
+    },
+    {
+      userName: 'Name',
+      comment: 'Text',
+      date: '12.19.2020' 
+    }
+  ]
 
   constructor(private http: HttpClient) { }
 
@@ -38,4 +62,19 @@ export class TaskService {
   findByTitle(taskTitle): Observable<any> {
     return this.http.get(`${baseUrl}?taskTitle=${taskTitle}`);
   }
+
+  getTaskComments(task): Observable<any> {
+    // TODO add api
+    // return this.http.get()
+    return of(this.tasksCommentStub);
+  }
+
+  addTaskComments(comment): Observable<any> {
+     // TODO add api
+    // return this.http.get()
+    this.tasksCommentStub.push(comment);
+    return of(this.tasksCommentStub);
+  }
+
+  
 }
