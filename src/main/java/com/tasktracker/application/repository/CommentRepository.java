@@ -7,9 +7,8 @@ import org.springframework.stereotype.Repository;
 import com.tasktracker.application.models.Comment;
 
 @Repository
-public interface CommentRepository extends JpaRepository<Comment, Long> {
-  List<Comment> findByTaskId(Long id_task);
+public interface CommentRepository extends JpaRepository<Comment, String> {
+  List<Comment> findByTaskId(String taskId);
 
 }
-
 

@@ -104,14 +104,16 @@ public class TaskController {
 
   @GetMapping("/tasks/{id}")
   public ResponseEntity<?> getTaskById(@PathVariable("id") long id) {
+  
     Optional<Task> taskData = taskRepository.findById(id);
 
     if (taskData.isPresent()) {
-      List<Comment> comments = new ArrayList<Comment>();
-      comments = commentRepository.findByTaskId(id);
+      Task task = taskData.get();
 
-      HashMap<Task, List<Comment>> hmap = new HashMap<Task, List<Comment>>();
-      hmap.put(taskData.get(), comments);
+      List<Comment> comments = new ArrayList<Comment>();
+      String task_id = Long.toString(id);
+      comments = commentRepository.findByTaskId(task_id);
+      //comments = commentRepository.findByTaskId(id);
 
       for (Comment comment : comments) {
         User cur_user = userService.getUser(Long.parseLong(comment.getUserId()));
@@ -121,11 +123,15 @@ public class TaskController {
         String fullname = lastname + ", " + firstname;
         comment.setUserId(fullname);
       }
-
-      return new ResponseEntity<HashMap<Task, List<Comment>>>(hmap, HttpStatus.OK);
+      task.setComments(comments);
+      
+      return new ResponseEntity<Task>(task, HttpStatus.OK);
     } else {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+
+
   }
 
   @PostMapping("/tasks")
