@@ -39,7 +39,7 @@ export class UserService {
   }
 
   getUser(userId): Observable<User> {
-    return this.http.post<User>(`${USERS_URL}/users/${userId}`, httpOptions);
+    return this.http.get<User>(`${USERS_URL}/users/${userId}`, httpOptions);
   }
 
   editeUser(user: any): Observable<any> {
@@ -54,9 +54,9 @@ export class UserService {
     const data = {
       userId: userId.toString(),
       comment,
-      month: date.getMonth() + 1,
-      amount: amount.toString,
-      year: date.getFullYear()
+      month: (date.getMonth() + 1).toString(),
+      amount: amount.toString(),
+      year: date.getFullYear().toString()
     }
     return this.http.post(`${USERS_URL}/add_bonus`, data, httpOptions);
   }

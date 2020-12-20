@@ -11,16 +11,7 @@ import { UserService } from 'src/app/_services/user.service';
 })
 export class UserPageComponent implements OnInit {
 
-  user: User = {
-           baseSalary: '10000',
-           email: "manager@manager",
-           firstname: "manager",
-           id: '2',
-           lastname: "manager",
-           password: "$2a$10$jO.ohWLoihLvSt/QDbzV5u3JY0sXbI2Nvn3DzHXMJTUdLhshjZ3x2",
-           roles: [{id: 2, name: "ROLE_MODERATOR"}],
-           username: "manager",
-  }
+  user: User;
 
   modelDate;
   salaryDate;
@@ -44,15 +35,13 @@ export class UserPageComponent implements OnInit {
 
   checkUserBonus() {
     this.userService.getBonuses(this.user.id, this.modelDate.getMonth() + 1, this.modelDate.getFullYear()).subscribe(value => {
-      console.log(value);
       this.bonuses = value;
     });
   }
 
   getUserSalary() {
-    this.userService.getSalary(this.user.id, this.modelDate.getMonth() + 1, this.modelDate.getFullYear()).subscribe(value => {
+    this.userService.getSalary(this.user.id, this.salaryDate.getMonth() + 1, this.salaryDate.getFullYear()).subscribe( value => {
       this.salary = value;
-      console.log(this.salary);
     });
   }
 
@@ -68,8 +57,9 @@ export class UserPageComponent implements OnInit {
   }
 
   onSubmit() {
-    this.userService.addBonus(this.user.id, this.form.comment, new Date(), this.form.bonus).subscribe(value => {
-      this.closeBonusPopover();
+    this.closeBonusPopover();
+    this.userService.addBonus(this.user.id, this.form.comment, new Date(), this.form.bonus).subscribe(() => {
+      this.form = { comment: '', bonus: 0 };
     });
   }
 

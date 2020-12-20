@@ -1,4 +1,4 @@
-<div class="user-page">
+<div class="user-page" *ngIf="!!user">
     <h5 class="user-name-header">{{user.firstname}} {{user.lastname}}</h5>
     <br>
     <div class="user-info">
@@ -27,13 +27,15 @@
 
             <button type="button"
                 (click)="getUserSalary()"
+                [disabled]="!salaryDate"
                 class="btn add-user-button">
                 Show salary
             </button>
         </div>
     </form>
 
-    <div class="user-info">
+    <div class="user-info"
+         *ngIf="!!salary">
         <label> Salary: </label>
         <span> {{salary.salaryAmount}} </span>
     </div>
@@ -43,6 +45,7 @@
             <input [(ngModel)]="modelDate" autocomplete="off" class="form-control" name="date" bsDatepicker [bsConfig]="{dateInputFormat: 'MM/YYYY'}" (onShown)="onOpenCalendar($event)">
 
             <button type="button"
+                [disabled]="!modelDate"
                 (click)="checkUserBonus()"
                 class="btn add-user-button">
                 Show user bonuses
@@ -50,6 +53,9 @@
         </div>
     </form>
 
+    <div *ngFor="let bonus of bonuses">
+        "{{bonus.comment}}" - {{bonus.amount}} rub
+    </div>
 
     <button type="button"
             (click)="openBounsPopover(template)"
