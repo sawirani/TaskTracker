@@ -25,6 +25,7 @@ export class TasksListComponent implements OnInit {
   }
   user;
   comments;
+  newTaskTitle;
 
   constructor(private taskService: TaskService,
               private tokenStorageService: TokenStorageService) { }
@@ -43,6 +44,17 @@ export class TasksListComponent implements OnInit {
     this.taskService.getAll()
       .subscribe(
         data => {
+          if (this.newTaskTitle) {
+            this.currentTask = data.find( (value, index) => {
+              if (value.taskTitle === this.newTaskTitle) {
+                this.currentIndex = index;
+                return true;
+              }
+              return false;
+            });
+            console.log(this.currentTask);
+            this.newTaskTitle = '';
+          }
           this.tasks = data;
           console.log(data);
         },
@@ -96,7 +108,8 @@ export class TasksListComponent implements OnInit {
         });
   }
 
-  onTaskCreate(): void {
+  onTaskCreate(title): void {
+    this.newTaskTitle = title;
     this.retrieveTasks();
     this.isTaskEditMode = false;
   }

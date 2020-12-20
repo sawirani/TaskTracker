@@ -73,13 +73,6 @@
     </form>
 
     <button
-      class="badge badge-primary mr-2"
-      *ngIf="currentTask.resolved"
-      (click)="updateResolved(false)"
-    >
-      UnResolve
-    </button>
-    <button
       *ngIf="!currentTask.resolved"
       class="badge badge-primary mr-2"
       (click)="updateResolved(true)"

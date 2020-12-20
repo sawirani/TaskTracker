@@ -132,7 +132,7 @@
   </div>
 
   <div *ngIf="isTaskEditMode">
-    <app-add-task (onTaskAdd)="onTaskCreate()"></app-add-task>
+    <app-add-task (onTaskAdd)="onTaskCreate($event)"></app-add-task>
   </div>
 
 </div>
