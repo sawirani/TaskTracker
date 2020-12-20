@@ -44,4 +44,19 @@ export class UserService {
     return this.http.post(`${USERS_URL}/user_delete`, user, httpOptions);
   }
 
+  addBonus(userId, comment, date: Date, amount): Observable<any> {
+    const data = {
+      userId: userId.toString(),
+      comment,
+      month: date.getMonth() + 1,
+      amount: amount.toString,
+      year: date.getFullYear()
+    }
+    return this.http.post(`${USERS_URL}/add_bonus`, data, httpOptions);
+  }
+
+  getBonuses(userId, month, year): Observable<any> {
+    return this.http.get(`${USERS_URL}/salary/${userId}/${month}/${year}`, httpOptions);
+  }
+
 }

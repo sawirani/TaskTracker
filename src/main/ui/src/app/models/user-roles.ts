@@ -18,4 +18,5 @@ export interface User {
     email: string;
     password: string;
     role?: any;
-};
+    baseSalary: string;
+}
