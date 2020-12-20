@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { User } from 'src/app/models/user-roles';
 import { UserService } from 'src/app/_services/user.service';
@@ -29,9 +30,13 @@ export class UserPageComponent implements OnInit {
   };
 
   constructor(private modalService: BsModalService,
-              private userService: UserService) { }
+              private userService: UserService,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    // this.route.params.subscribe(params => {
+    //   this.userService.getUser(params.id).subscribe(user => this.user = user);
+    // });
   }
 
   checkUserBonus() {

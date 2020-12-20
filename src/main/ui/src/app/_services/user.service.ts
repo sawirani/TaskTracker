@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { User } from '../models/user-roles';
 
 const API_URL = 'http://localhost:8080/api/test/';
 const USERS_URL = 'http://localhost:8080/api';
@@ -34,6 +35,10 @@ export class UserService {
 
   getAllUsers(): Observable<any> {
     return this.http.get(`${USERS_URL}/users`, httpOptions);
+  }
+
+  getUser(userId): Observable<User> {
+    return this.http.post<User>(`${USERS_URL}/users/${userId}`, httpOptions);
   }
 
   editeUser(user: any): Observable<any> {
