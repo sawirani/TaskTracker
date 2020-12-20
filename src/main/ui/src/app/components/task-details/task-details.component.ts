@@ -3,6 +3,7 @@ import { TaskService } from '../../_services/task.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/_services/user.service';
 import { User } from 'src/app/models/user-roles';
+import { TaskStatuses } from 'src/app/models/task.model';
 
 @Component({
   selector: 'app-task-details',
@@ -13,6 +14,7 @@ export class TaskDetailsComponent implements OnInit {
   currentTask = null;
   message = '';
   users: User[] = [];
+  taskStatuses = TaskStatuses;
 
   constructor(
     private taskService: TaskService,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TaskStatuses, TaskStatusesModel } from 'src/app/models/task.model';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { TaskService } from '../../_services/task.service';
 
@@ -60,14 +61,14 @@ export class TasksListComponent implements OnInit {
     this.getTask(task.id, index);
   }
 
-  getTask(id, index?): void {
+  getTask(id, index): void {
+    this.currentIndex = index;
     this.taskService.get(id).subscribe( newTask => {
       this.currentTask = newTask;
       this.currentTask.comments = this.currentTask.comments.map( comment => {
         comment.date = new Date(comment.date);
         return comment;
       });
-      this.currentIndex = index ? index : this.currentIndex;
     });
   }
 
@@ -110,7 +111,17 @@ export class TasksListComponent implements OnInit {
 
     this.taskService.addTaskComment(comment).subscribe(() => {
       this.form.comment = '';
-      this.getTask(this.currentTask.id);
+      this.getTask(this.currentTask.id, this.currentIndex);
     });
+  }
+
+  getStatusColorClass(status): string {
+    if (status === TaskStatusesModel.New) {
+      return 'circle-grey';
+    } else if (status === TaskStatusesModel.In_progress) {
+      return 'circle-blue';
+    } else {
+      return 'circle-green';
+    }
   }
 }

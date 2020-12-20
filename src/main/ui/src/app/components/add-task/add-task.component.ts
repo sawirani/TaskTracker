@@ -16,7 +16,8 @@ export class AddTaskComponent implements OnInit {
     eta: '',
     assigned: '',
     points: '',
-    resolved: false
+    resolved: false,
+    status: 'New'
   };
   submitted = false;
   users: User[];
@@ -37,7 +38,8 @@ export class AddTaskComponent implements OnInit {
       startDate: this.task.startDate,
       eta: this.task.eta,
       assigned: this.task.assigned,
-      points: this.task.points
+      points: this.task.points,
+      status: this.task.status
     };
 
     this.taskService.create(data)
@@ -67,7 +69,8 @@ export class AddTaskComponent implements OnInit {
       eta: '',
       assigned: '',
       points: '',
-      resolved: false
+      resolved: false,
+      status: 'New'
     };
   }
 
