@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../models/user-roles';
+import { SalaryModel, User } from '../models/user-roles';
+import { of } from 'rxjs/internal/observable/of';
 
 const API_URL = 'http://localhost:8080/api/test/';
 const USERS_URL = 'http://localhost:8080/api';
@@ -61,7 +62,11 @@ export class UserService {
   }
 
   getBonuses(userId, month, year): Observable<any> {
-    return this.http.get(`${USERS_URL}/salary/${userId}/${month}/${year}`, httpOptions);
+    return this.http.get(`${USERS_URL}/bonus/${userId}/${month}/${year}`, httpOptions);
+  }
+
+  getSalary(userId, month, year): Observable<SalaryModel> {
+    return this.http.get<SalaryModel>(`${USERS_URL}/salary/${userId}/${month}/${year}`, httpOptions);
   }
 
 }

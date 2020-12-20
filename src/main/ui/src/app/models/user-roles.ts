@@ -20,3 +20,8 @@ export interface User {
     role?: any;
     baseSalary: string;
 }
+
+export interface SalaryModel {
+    fullname: string;
+    salaryAmount: number;
+}

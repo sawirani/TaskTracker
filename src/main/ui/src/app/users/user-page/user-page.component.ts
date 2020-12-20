@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { User } from 'src/app/models/user-roles';
+import { SalaryModel, User } from 'src/app/models/user-roles';
 import { UserService } from 'src/app/_services/user.service';
 
 @Component({
@@ -23,25 +23,36 @@ export class UserPageComponent implements OnInit {
   }
 
   modelDate;
+  salaryDate;
   modalRef: BsModalRef;
   form = {
     comment: '',
     bonus: 0
   };
+  bonuses;
+  salary: SalaryModel;
 
   constructor(private modalService: BsModalService,
               private userService: UserService,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    // this.route.params.subscribe(params => {
-    //   this.userService.getUser(params.id).subscribe(user => this.user = user);
-    // });
+    this.route.params.subscribe(params => {
+      this.userService.getUser(params.id).subscribe(user => this.user = user);
+    });
   }
 
   checkUserBonus() {
     this.userService.getBonuses(this.user.id, this.modelDate.getMonth() + 1, this.modelDate.getFullYear()).subscribe(value => {
       console.log(value);
+      this.bonuses = value;
+    });
+  }
+
+  getUserSalary() {
+    this.userService.getSalary(this.user.id, this.modelDate.getMonth() + 1, this.modelDate.getFullYear()).subscribe(value => {
+      this.salary = value;
+      console.log(this.salary);
     });
   }
 

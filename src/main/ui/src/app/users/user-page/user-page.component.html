@@ -23,12 +23,29 @@
 
     <form>
         <div class="date-selector">
+            <input [(ngModel)]="salaryDate" autocomplete="off" class="form-control" name="date" bsDatepicker [bsConfig]="{dateInputFormat: 'MM/YYYY'}" (onShown)="onOpenCalendar($event)">
+
+            <button type="button"
+                (click)="getUserSalary()"
+                class="btn add-user-button">
+                Show salary
+            </button>
+        </div>
+    </form>
+
+    <div class="user-info">
+        <label> Salary: </label>
+        <span> {{salary.salaryAmount}} </span>
+    </div>
+
+    <form>
+        <div class="date-selector">
             <input [(ngModel)]="modelDate" autocomplete="off" class="form-control" name="date" bsDatepicker [bsConfig]="{dateInputFormat: 'MM/YYYY'}" (onShown)="onOpenCalendar($event)">
 
             <button type="button"
                 (click)="checkUserBonus()"
                 class="btn add-user-button">
-            Check Bonus
+                Show user bonuses
             </button>
         </div>
     </form>
